@@ -49,8 +49,8 @@ Distribusi bersifat prorata: setiap pegawai diberi bagian sesuai jumlah jam kerj
 🛠️ Setup & Deploy
 
 1. Clone Repository
-git clone https://github.com/yourusername/taskpay-backend.git
-cd taskpay-backend
+git clone https://github.com/renggamaulana/work-tracker-api.git
+cd work-tracker-api
 
 2. Install Dependencies
 composer install
@@ -64,7 +64,7 @@ Lalu edit file .env sesuai database lokal:
 DB_DATABASE=work_tracker
 DB_USERNAME=root
 DB_PASSWORD=yourpassword
-Buat database taskpay di MySQL.
+Buat database work_tracker di MySQL.
 
 4. Migrate & Seed
 php artisan migrate --seed
