@@ -12,7 +12,26 @@ class WorkLogController extends Controller
     // GET /api/work-logs
     public function index()
     {
-        $logs = WorkLog::with('contributors')->orderBy('date', 'desc')->get();
+        $query = WorkLog::with('contributors');
+
+        // Search by task_description or employee_name
+        if (request()->has('search') && request('search') !== '') {
+            $search = request('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('task_description', 'like', "%{$search}%")
+                ->orWhereHas('contributors', function ($cq) use ($search) {
+                    $cq->where('employee_name', 'like', "%{$search}%");
+                });
+            });
+        }
+
+        // Sorting
+        $sort = request('sort', 'date');
+        $order = request('order', 'desc');
+        $query->orderBy($sort, $order);
+
+        $logs = $query->get();
+
         return WorkLogResource::collection($logs);
     }
 
